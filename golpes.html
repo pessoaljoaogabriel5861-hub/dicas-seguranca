@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Golpes Digitais — Compra Segura Digital</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Merriweather:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="banner-capa">
+  <img src="capa.jpg" alt="Compra Segura Digital — Segurança nas compras online para idosos em Mãe Luíza" />
+</div>
+
+<header>
+  <div class="header-top">
+    <span><i class="ti ti-map-pin" aria-hidden="true"></i> Mãe Luíza, Natal — RN</span>
+    <span id="data-atual"></span>
+  </div>
+  <div class="header-main">
+    <div class="logo-icon"><i class="ti ti-shield-check" aria-hidden="true"></i></div>
+    <div class="logo-texto">
+      <h1>Compra Segura Digital</h1>
+      <p>Segurança nas compras online para idosos • TCC 2026</p>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <a href="index.html" target="_blank" ><i class="ti ti-home" aria-hidden="true"></i> Início</a>
+  <a href="dicas.html" target="_blank" ><i class="ti ti-bulb" aria-hidden="true"></i> Dicas e Truques</a>
+  <a href="golpes.html" target="_blank" class="ativo"><i class="ti ti-alert-triangle" aria-hidden="true"></i> Golpes Digitais</a>
+  <a href="compras.html" target="_blank" ><i class="ti ti-shopping-cart" aria-hidden="true"></i> Como Comprar</a>
+  <a href="sobre.html" target="_blank" ><i class="ti ti-users" aria-hidden="true"></i> Sobre o Projeto</a>
+</nav>
+
+<main>
+
+  <div class="alerta-golpe" style="margin-bottom:20px;">
+    <div class="topo-alerta">
+      <i class="ti ti-alert-circle" aria-hidden="true"></i>
+      <h3>Principais Golpes Digitais — Saiba como se proteger</h3>
+    </div>
+  </div>
+
+  <div class="bloco-info">
+    <h3>📱 Golpe do WhatsApp</h3>
+    <p>Criminosos clonam o número de um familiar seu e pedem dinheiro com urgência ("Mãe, estou em aperto, me manda Pix?"). Antes de qualquer transferência, <strong>ligue para a pessoa no número antigo</strong> para confirmar.</p>
+  </div>
+
+  <div class="bloco-info">
+    <h3>🏦 Golpe do Falso Banco</h3>
+    <p>Alguém liga fingindo ser do seu banco dizendo que sua conta foi invadida. Pede sua senha, token ou código. <strong>Bancos NUNCA pedem senha por telefone.</strong> Desligue e ligue diretamente para o banco pelo número do cartão.</p>
+  </div>
+
+  <div class="bloco-info">
+    <h3>🛍️ Site Falso de Loja</h3>
+    <p>Sites que copiam a aparência de lojas famosas (Americanas, Shopee, Magazine Luiza) para roubar dados do cartão. <strong>Sempre acesse as lojas digitando o endereço diretamente no navegador</strong>, nunca clicando em links de e-mail ou SMS.</p>
+  </div>
+
+  <div class="bloco-info">
+    <h3>🎁 Golpe do Falso Prêmio</h3>
+    <p>Mensagem dizendo "Parabéns! Você ganhou R$ 5.000 — clique aqui para receber." Para liberar o prêmio, pedem seus dados bancários. <strong>Não existe prêmio real que exija pagamento para ser recebido.</strong> Ignore e apague a mensagem.</p>
+  </div>
+
+  <div class="bloco-info" style="border:2px solid var(--verde); background:var(--verde-claro);">
+    <h3 style="color:var(--verde-escuro);">✅ O que fazer se cair em um golpe</h3>
+    <ul>
+      <li>Ligue imediatamente para o seu banco e bloqueie o cartão</li>
+      <li>Registre um Boletim de Ocorrência (pode ser pelo site da Polícia Civil)</li>
+      <li>Avise um familiar de confiança</li>
+      <li>Guarde todas as mensagens recebidas como prova</li>
+      <li>Ligue para o <strong>Procon: 151</strong> ou <strong>Polícia: 190</strong></li>
+    </ul>
+  </div>
+</main>
+
+<footer>
+  <p>© 2026 <strong>Compra Segura Digital</strong> — TCC de João Gabriel, Luísa e Tayná · Mãe Luíza, Natal/RN</p>
+</footer>
+
+<button id="btn-acessibilidade" onclick="togglePainel()" aria-label="Opções de acessibilidade" title="Acessibilidade">
+  <i class="ti ti-accessible" aria-hidden="true"></i> Acessibilidade
+</button>
+
+<div id="painel-acess" role="dialog" aria-label="Painel de acessibilidade">
+  <h4><i class="ti ti-accessible" aria-hidden="true"></i> Acessibilidade</h4>
+  <button class="btn-acess-opcao" onclick="toggleFonteGrande()">
+    <i class="ti ti-text-size" aria-hidden="true"></i>
+    <span id="txt-fonte">🔤 Letra BEM Maior</span>
+  </button>
+  <button class="btn-acess-opcao" onclick="toggleContraste()">
+    <i class="ti ti-contrast" aria-hidden="true"></i>
+    <span id="txt-contraste">🌑 Alto Contraste</span>
+  </button>
+  <button class="btn-acess-opcao" onclick="resetAcess()">
+    <i class="ti ti-refresh" aria-hidden="true"></i> Voltar ao Normal
+  </button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
