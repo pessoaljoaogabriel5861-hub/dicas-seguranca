@@ -1,7 +1,7 @@
 /* ========================================
    COMPRA SEGURA DIGITAL — style.css
    TCC: João Gabriel, Luísa e Tayná
-   Mãe Luíza, Natal/RN — 2026
+   Natal/RN — 2026
    ======================================== */
 
 *, *::before, *::after {
@@ -91,8 +91,11 @@ header {
 .banner-capa {
   width: 100%;
   display: block;
-  line-height: 0;
+  line-height: 1.6;
   background: #f1efe8;
+  color: var(--verde-escuro);
+  font-size: 18px;
+  font-weight: 700;
 }
 
 .banner-capa img {
@@ -100,6 +103,9 @@ header {
   height: auto;
   display: block;
   object-fit: contain;
+  min-height: 64px;
+  line-height: 64px;
+  text-indent: 16px;
 }
 
 /* ========== NAVEGAÇÃO ========== */
