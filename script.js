@@ -17,10 +17,25 @@ function anunciar(msg) {
   setTimeout(function () { aviso.textContent = msg; }, 50);
 }
 
+function codigo() {
+  return (fonteGrande ? 'f' : '') + (altoContraste ? 'c' : '');
+}
+
+// Garantia extra: leva a escolha dentro dos links das páginas (?a=fc)
+function atualizarLinks() {
+  document.querySelectorAll('a[href]').forEach(function (a) {
+    var href = a.getAttribute('href');
+    if (!/\.html(\?.*)?$/.test(href)) return;
+    var base = href.split('?')[0];
+    a.setAttribute('href', codigo() ? base + '?a=' + codigo() : base);
+  });
+}
+
 function salvar() {
   try {
     localStorage.setItem('acess', JSON.stringify({ f: fonteGrande, c: altoContraste }));
   } catch (e) {}
+  atualizarLinks();
 }
 
 function rotulo(id, emoji, texto) {
@@ -84,11 +99,16 @@ function resetAcess() {
 // ---------- INICIALIZAÇÃO ----------
 document.addEventListener('DOMContentLoaded', function () {
   // Restaura preferências (valem para todas as abas do site)
+  var f = false, c = false;
   try {
     var salvo = JSON.parse(localStorage.getItem('acess') || '{}');
-    if (salvo.f) aplicarFonte(true, false);
-    if (salvo.c) aplicarContraste(true, false);
+    f = !!salvo.f; c = !!salvo.c;
   } catch (e) {}
+  var p = new URLSearchParams(window.location.search).get('a');
+  if (p !== null) { f = p.indexOf('f') > -1; c = p.indexOf('c') > -1; }
+  if (f) aplicarFonte(true, false);
+  if (c) aplicarContraste(true, false);
+  salvar();
 
   // Data no cabeçalho
   var spanData = el('data-atual');
