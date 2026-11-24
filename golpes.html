@@ -10,6 +10,9 @@
 </head>
 <body>
 
+<a class="skip-link" href="#conteudo">Ir para o conteúdo principal</a>
+
+
 <div class="banner-capa">
   <img src="capa.jpg" alt="Compra Segura Digital — Segurança nas compras online para idosos" />
 </div>
@@ -28,17 +31,17 @@
   </div>
 </header>
 
-<nav>
-  <a href="index.html" target="_blank" ><i class="ti ti-home" aria-hidden="true"></i> Início</a>
-  <a href="dicas.html" target="_blank" ><i class="ti ti-bulb" aria-hidden="true"></i> Dicas e Truques</a>
-  <a href="golpes.html" target="_blank" class="ativo"><i class="ti ti-alert-triangle" aria-hidden="true"></i> Golpes Digitais</a>
-  <a href="compras.html" target="_blank" ><i class="ti ti-shopping-cart" aria-hidden="true"></i> Como Comprar</a>
-  <a href="sobre.html" target="_blank" ><i class="ti ti-users" aria-hidden="true"></i> Sobre o Projeto</a>
+<nav aria-label="Menu principal">
+  <a href="index.html" target="_blank" rel="noopener" ><i class="ti ti-home" aria-hidden="true"></i> Início<span class="sr-only"> (abre em nova aba)</span></a>
+  <a href="dicas.html" target="_blank" rel="noopener" ><i class="ti ti-bulb" aria-hidden="true"></i> Dicas e Truques<span class="sr-only"> (abre em nova aba)</span></a>
+  <a href="golpes.html" target="_blank" rel="noopener" class="ativo" aria-current="page"><i class="ti ti-alert-triangle" aria-hidden="true"></i> Golpes Digitais<span class="sr-only"> (abre em nova aba)</span></a>
+  <a href="compras.html" target="_blank" rel="noopener" ><i class="ti ti-shopping-cart" aria-hidden="true"></i> Como Comprar<span class="sr-only"> (abre em nova aba)</span></a>
+  <a href="sobre.html" target="_blank" rel="noopener" ><i class="ti ti-users" aria-hidden="true"></i> Sobre o Projeto<span class="sr-only"> (abre em nova aba)</span></a>
 </nav>
 
-<main>
+<main id="conteudo" tabindex="-1">
 
-  <div class="alerta-golpe" style="margin-bottom:20px;">
+  <div class="alerta-golpe" role="note" style="margin-bottom:20px;">
     <div class="topo-alerta">
       <i class="ti ti-alert-circle" aria-hidden="true"></i>
       <h3>Principais Golpes Digitais — Saiba como se proteger</h3>
@@ -46,27 +49,27 @@
   </div>
 
   <div class="bloco-info">
-    <h3>📱 Golpe do WhatsApp</h3>
+    <h3><span aria-hidden="true">📱</span> Golpe do WhatsApp</h3>
     <p>Criminosos clonam o número de um familiar seu e pedem dinheiro com urgência ("Mãe, estou em aperto, me manda Pix?"). Antes de qualquer transferência, <strong>ligue para a pessoa no número antigo</strong> para confirmar.</p>
   </div>
 
   <div class="bloco-info">
-    <h3>🏦 Golpe do Falso Banco</h3>
+    <h3><span aria-hidden="true">🏦</span> Golpe do Falso Banco</h3>
     <p>Alguém liga fingindo ser do seu banco dizendo que sua conta foi invadida. Pede sua senha, token ou código. <strong>Bancos NUNCA pedem senha por telefone.</strong> Desligue e ligue diretamente para o banco pelo número do cartão.</p>
   </div>
 
   <div class="bloco-info">
-    <h3>🛍️ Site Falso de Loja</h3>
+    <h3><span aria-hidden="true">🛍️</span> Site Falso de Loja</h3>
     <p>Sites que copiam a aparência de lojas famosas (Americanas, Shopee, Magazine Luiza) para roubar dados do cartão. <strong>Sempre acesse as lojas digitando o endereço diretamente no navegador</strong>, nunca clicando em links de e-mail ou SMS.</p>
   </div>
 
   <div class="bloco-info">
-    <h3>🎁 Golpe do Falso Prêmio</h3>
+    <h3><span aria-hidden="true">🎁</span> Golpe do Falso Prêmio</h3>
     <p>Mensagem dizendo "Parabéns! Você ganhou R$ 5.000 — clique aqui para receber." Para liberar o prêmio, pedem seus dados bancários. <strong>Não existe prêmio real que exija pagamento para ser recebido.</strong> Ignore e apague a mensagem.</p>
   </div>
 
   <div class="bloco-info" style="border:2px solid var(--verde); background:var(--verde-claro);">
-    <h3 style="color:var(--verde-escuro);">✅ O que fazer se cair em um golpe</h3>
+    <h3 style="color:var(--verde-escuro);"><span aria-hidden="true">✅</span> O que fazer se cair em um golpe</h3>
     <ul>
       <li>Ligue imediatamente para o seu banco e bloqueie o cartão</li>
       <li>Registre um Boletim de Ocorrência (pode ser pelo site da Polícia Civil)</li>
@@ -81,24 +84,26 @@
   <p>© 2026 <strong>Compra Segura Digital</strong> — TCC de João Gabriel, Luísa e Tayná · Natal/RN</p>
 </footer>
 
-<button id="btn-acessibilidade" onclick="togglePainel()" aria-label="Opções de acessibilidade" title="Acessibilidade">
+<button id="btn-acessibilidade" onclick="togglePainel()" aria-label="Opções de acessibilidade" aria-haspopup="dialog" aria-expanded="false" aria-controls="painel-acess" title="Acessibilidade">
   <i class="ti ti-accessible" aria-hidden="true"></i> Acessibilidade
 </button>
 
-<div id="painel-acess" role="dialog" aria-label="Painel de acessibilidade">
-  <h4><i class="ti ti-accessible" aria-hidden="true"></i> Acessibilidade</h4>
-  <button class="btn-acess-opcao" onclick="toggleFonteGrande()">
+<div id="painel-acess" role="dialog" aria-labelledby="titulo-painel" hidden>
+  <h4 id="titulo-painel"><i class="ti ti-accessible" aria-hidden="true"></i> Acessibilidade</h4>
+  <button class="btn-acess-opcao" id="btn-fonte" onclick="toggleFonteGrande()" aria-pressed="false">
     <i class="ti ti-text-size" aria-hidden="true"></i>
-    <span id="txt-fonte">🔤 Letra BEM Maior</span>
+    <span id="txt-fonte"><span aria-hidden="true">🔤</span> Letra BEM Maior</span>
   </button>
-  <button class="btn-acess-opcao" onclick="toggleContraste()">
+  <button class="btn-acess-opcao" id="btn-contraste" onclick="toggleContraste()" aria-pressed="false">
     <i class="ti ti-contrast" aria-hidden="true"></i>
-    <span id="txt-contraste">🌑 Alto Contraste</span>
+    <span id="txt-contraste"><span aria-hidden="true">🌑</span> Alto Contraste</span>
   </button>
   <button class="btn-acess-opcao" onclick="resetAcess()">
     <i class="ti ti-refresh" aria-hidden="true"></i> Voltar ao Normal
   </button>
 </div>
+
+<div id="aviso-acess" class="sr-only" role="status" aria-live="polite"></div>
 
 <script src="script.js"></script>
 </body>

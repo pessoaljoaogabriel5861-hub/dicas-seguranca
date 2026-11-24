@@ -10,6 +10,9 @@
 </head>
 <body>
 
+<a class="skip-link" href="#conteudo">Ir para o conteúdo principal</a>
+
+
 <div class="banner-capa">
   <img src="capa.jpg" alt="Compra Segura Digital — Segurança nas compras online para idosos" />
 </div>
@@ -28,25 +31,25 @@
   </div>
 </header>
 
-<nav>
-  <a href="index.html" target="_blank" ><i class="ti ti-home" aria-hidden="true"></i> Início</a>
-  <a href="dicas.html" target="_blank" class="ativo"><i class="ti ti-bulb" aria-hidden="true"></i> Dicas e Truques</a>
-  <a href="golpes.html" target="_blank" ><i class="ti ti-alert-triangle" aria-hidden="true"></i> Golpes Digitais</a>
-  <a href="compras.html" target="_blank" ><i class="ti ti-shopping-cart" aria-hidden="true"></i> Como Comprar</a>
-  <a href="sobre.html" target="_blank" ><i class="ti ti-users" aria-hidden="true"></i> Sobre o Projeto</a>
+<nav aria-label="Menu principal">
+  <a href="index.html" target="_blank" rel="noopener" ><i class="ti ti-home" aria-hidden="true"></i> Início<span class="sr-only"> (abre em nova aba)</span></a>
+  <a href="dicas.html" target="_blank" rel="noopener" class="ativo" aria-current="page"><i class="ti ti-bulb" aria-hidden="true"></i> Dicas e Truques<span class="sr-only"> (abre em nova aba)</span></a>
+  <a href="golpes.html" target="_blank" rel="noopener" ><i class="ti ti-alert-triangle" aria-hidden="true"></i> Golpes Digitais<span class="sr-only"> (abre em nova aba)</span></a>
+  <a href="compras.html" target="_blank" rel="noopener" ><i class="ti ti-shopping-cart" aria-hidden="true"></i> Como Comprar<span class="sr-only"> (abre em nova aba)</span></a>
+  <a href="sobre.html" target="_blank" rel="noopener" ><i class="ti ti-users" aria-hidden="true"></i> Sobre o Projeto<span class="sr-only"> (abre em nova aba)</span></a>
 </nav>
 
-<main>
+<main id="conteudo" tabindex="-1">
 
   <div class="bloco-info">
     <h3><i class="ti ti-shield" aria-hidden="true"></i> Como saber se um site é seguro</h3>
     <p>Antes de fazer qualquer compra, verifique estes pontos importantes:</p>
     <ul style="margin-top:14px;">
-      <li>🔒 O endereço do site começa com <strong>https://</strong> (com o "s" de seguro)</li>
-      <li>🏦 O site tem CNPJ e telefone de contato visíveis</li>
-      <li>⭐ Pesquise o nome da loja no Google antes de comprar</li>
-      <li>💳 Prefira pagar pelo Pix ou boleto em vez de dar o número do cartão</li>
-      <li>📱 Desconfie de promoções que aparecem no WhatsApp ou pelo SMS</li>
+      <li><span aria-hidden="true">🔒</span> O endereço do site começa com <strong>https://</strong> (com o "s" de seguro)</li>
+      <li><span aria-hidden="true">🏦</span> O site tem CNPJ e telefone de contato visíveis</li>
+      <li><span aria-hidden="true">⭐</span> Pesquise o nome da loja no Google antes de comprar</li>
+      <li><span aria-hidden="true">💳</span> Prefira pagar pelo Pix ou boleto em vez de dar o número do cartão</li>
+      <li><span aria-hidden="true">📱</span> Desconfie de promoções que aparecem no WhatsApp ou pelo SMS</li>
     </ul>
   </div>
 
@@ -75,24 +78,26 @@
   <p>© 2026 <strong>Compra Segura Digital</strong> — TCC de João Gabriel, Luísa e Tayná · Natal/RN</p>
 </footer>
 
-<button id="btn-acessibilidade" onclick="togglePainel()" aria-label="Opções de acessibilidade" title="Acessibilidade">
+<button id="btn-acessibilidade" onclick="togglePainel()" aria-label="Opções de acessibilidade" aria-haspopup="dialog" aria-expanded="false" aria-controls="painel-acess" title="Acessibilidade">
   <i class="ti ti-accessible" aria-hidden="true"></i> Acessibilidade
 </button>
 
-<div id="painel-acess" role="dialog" aria-label="Painel de acessibilidade">
-  <h4><i class="ti ti-accessible" aria-hidden="true"></i> Acessibilidade</h4>
-  <button class="btn-acess-opcao" onclick="toggleFonteGrande()">
+<div id="painel-acess" role="dialog" aria-labelledby="titulo-painel" hidden>
+  <h4 id="titulo-painel"><i class="ti ti-accessible" aria-hidden="true"></i> Acessibilidade</h4>
+  <button class="btn-acess-opcao" id="btn-fonte" onclick="toggleFonteGrande()" aria-pressed="false">
     <i class="ti ti-text-size" aria-hidden="true"></i>
-    <span id="txt-fonte">🔤 Letra BEM Maior</span>
+    <span id="txt-fonte"><span aria-hidden="true">🔤</span> Letra BEM Maior</span>
   </button>
-  <button class="btn-acess-opcao" onclick="toggleContraste()">
+  <button class="btn-acess-opcao" id="btn-contraste" onclick="toggleContraste()" aria-pressed="false">
     <i class="ti ti-contrast" aria-hidden="true"></i>
-    <span id="txt-contraste">🌑 Alto Contraste</span>
+    <span id="txt-contraste"><span aria-hidden="true">🌑</span> Alto Contraste</span>
   </button>
   <button class="btn-acess-opcao" onclick="resetAcess()">
     <i class="ti ti-refresh" aria-hidden="true"></i> Voltar ao Normal
   </button>
 </div>
+
+<div id="aviso-acess" class="sr-only" role="status" aria-live="polite"></div>
 
 <script src="script.js"></script>
 </body>

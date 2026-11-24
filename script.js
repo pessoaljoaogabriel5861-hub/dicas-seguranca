@@ -1,124 +1,121 @@
 // ========================================
 //  COMPRA SEGURA DIGITAL — script.js
 //  TCC: João Gabriel, Luísa e Tayná
-//  Mãe Luíza, Natal/RN — 2026
+//  Natal/RN — 2026
 // ========================================
-
-// ---------- NAVEGAÇÃO ENTRE SEÇÕES ----------
-
-/**
- * Troca a seção visível e marca o link da nav como ativo.
- * @param {string} id - ID da seção a exibir (ex: 'dicas', 'golpes')
- */
-function trocarSecao(id) {
-  // Oculta todas as seções
-  document.querySelectorAll('.secao').forEach(function (s) {
-    s.classList.remove('ativa');
-  });
-
-  // Remove destaque de todos os links da nav
-  document.querySelectorAll('nav a').forEach(function (a) {
-    a.classList.remove('ativo');
-  });
-
-  // Exibe a seção escolhida
-  var secao = document.getElementById(id);
-  if (secao) secao.classList.add('ativa');
-
-  // Marca o link correspondente como ativo
-  var linkAtivo = document.querySelector('nav a[data-secao="' + id + '"]');
-  if (linkAtivo) linkAtivo.classList.add('ativo');
-
-  // Fecha o painel de acessibilidade se estiver aberto
-  fecharPainel();
-
-  // Volta ao topo suavemente
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-// Liga os cliques da nav automaticamente ao carregar a página
-document.addEventListener('DOMContentLoaded', function () {
-  document.querySelectorAll('nav a[data-secao]').forEach(function (link) {
-    link.addEventListener('click', function () {
-      trocarSecao(this.getAttribute('data-secao'));
-    });
-  });
-
-  // Liga também os cards da página inicial
-  document.querySelectorAll('[data-ir]').forEach(function (el) {
-    el.addEventListener('click', function () {
-      trocarSecao(this.getAttribute('data-ir'));
-    });
-  });
-
-  // Data atual no header
-  var spanData = document.getElementById('data-atual');
-  if (spanData) {
-    var dias  = ['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'];
-    var meses = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
-    var hoje  = new Date();
-    spanData.textContent =
-      dias[hoje.getDay()] + ', ' +
-      hoje.getDate() + ' de ' +
-      meses[hoje.getMonth()] + ' de ' +
-      hoje.getFullYear();
-  }
-});
-
-// ---------- ACESSIBILIDADE ----------
-
-function togglePainel() {
-  var painel = document.getElementById('painel-acess');
-  if (painel.style.display === 'block') {
-    fecharPainel();
-  } else {
-    painel.style.display = 'block';
-  }
-}
-
-function fecharPainel() {
-  var painel = document.getElementById('painel-acess');
-  if (painel) painel.style.display = 'none';
-}
 
 var fonteGrande   = false;
 var altoContraste = false;
 
-function toggleFonteGrande() {
-  fonteGrande = !fonteGrande;
-  document.body.classList.toggle('fonte-grande', fonteGrande);
-  document.getElementById('txt-fonte').textContent = fonteGrande
-    ? '🔤 Letra Normal'
-    : '🔤 Letra BEM Maior';
+// ---------- UTILITÁRIOS ----------
+function el(id) { return document.getElementById(id); }
+
+function anunciar(msg) {
+  var aviso = el('aviso-acess');
+  if (!aviso) return;
+  aviso.textContent = '';
+  setTimeout(function () { aviso.textContent = msg; }, 50);
 }
 
-function toggleContraste() {
-  altoContraste = !altoContraste;
-  document.body.classList.toggle('alto-contraste', altoContraste);
-  document.getElementById('txt-contraste').textContent = altoContraste
-    ? '🌑 Contraste Normal'
-    : '🌑 Alto Contraste';
+function salvar() {
+  try {
+    localStorage.setItem('acess', JSON.stringify({ f: fonteGrande, c: altoContraste }));
+  } catch (e) {}
 }
+
+function rotulo(id, emoji, texto) {
+  var b = el(id);
+  if (b) b.querySelector('span').innerHTML = '<span aria-hidden="true">' + emoji + '</span> ' + texto;
+}
+
+// ---------- PAINEL DE ACESSIBILIDADE ----------
+function abrirPainel() {
+  el('painel-acess').hidden = false;
+  el('painel-acess').style.display = 'block';
+  el('btn-acessibilidade').setAttribute('aria-expanded', 'true');
+  var primeiro = el('btn-fonte');
+  if (primeiro) primeiro.focus();
+}
+
+function fecharPainel(devolverFoco) {
+  var painel = el('painel-acess');
+  if (!painel) return;
+  painel.hidden = true;
+  painel.style.display = 'none';
+  var btn = el('btn-acessibilidade');
+  if (btn) {
+    btn.setAttribute('aria-expanded', 'false');
+    if (devolverFoco) btn.focus();
+  }
+}
+
+function togglePainel() {
+  if (el('painel-acess').hidden) abrirPainel(); else fecharPainel(true);
+}
+
+// ---------- OPÇÕES ----------
+function aplicarFonte(ativo, avisar) {
+  fonteGrande = ativo;
+  document.body.classList.toggle('fonte-grande', ativo);
+  el('btn-fonte').setAttribute('aria-pressed', String(ativo));
+  rotulo('btn-fonte', '🔤', ativo ? 'Letra Normal' : 'Letra BEM Maior');
+  if (avisar) anunciar(ativo ? 'Letra grande ativada' : 'Letra grande desativada');
+}
+
+function aplicarContraste(ativo, avisar) {
+  altoContraste = ativo;
+  document.body.classList.toggle('alto-contraste', ativo);
+  el('btn-contraste').setAttribute('aria-pressed', String(ativo));
+  rotulo('btn-contraste', '🌑', ativo ? 'Contraste Normal' : 'Alto Contraste');
+  if (avisar) anunciar(ativo ? 'Alto contraste ativado' : 'Alto contraste desativado');
+}
+
+function toggleFonteGrande() { aplicarFonte(!fonteGrande, true);   salvar(); }
+function toggleContraste()   { aplicarContraste(!altoContraste, true); salvar(); }
 
 function resetAcess() {
-  fonteGrande   = false;
-  altoContraste = false;
-  document.body.classList.remove('fonte-grande', 'alto-contraste');
-  document.getElementById('txt-fonte').textContent     = '🔤 Letra BEM Maior';
-  document.getElementById('txt-contraste').textContent = '🌑 Alto Contraste';
-  fecharPainel();
+  aplicarFonte(false, false);
+  aplicarContraste(false, false);
+  salvar();
+  anunciar('Configurações de acessibilidade restauradas ao normal');
+  fecharPainel(true);
 }
 
-// Fecha painel ao clicar fora
+// ---------- INICIALIZAÇÃO ----------
+document.addEventListener('DOMContentLoaded', function () {
+  // Restaura preferências (valem para todas as abas do site)
+  try {
+    var salvo = JSON.parse(localStorage.getItem('acess') || '{}');
+    if (salvo.f) aplicarFonte(true, false);
+    if (salvo.c) aplicarContraste(true, false);
+  } catch (e) {}
+
+  // Data no cabeçalho
+  var spanData = el('data-atual');
+  if (spanData) {
+    var dias  = ['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'];
+    var meses = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+    var hoje  = new Date();
+    spanData.textContent = dias[hoje.getDay()] + ', ' + hoje.getDate() + ' de ' +
+                           meses[hoje.getMonth()] + ' de ' + hoje.getFullYear();
+  }
+
+  // O link "Ir para o conteúdo" move o foco de verdade para o <main>
+  var skip = document.querySelector('.skip-link');
+  if (skip) skip.addEventListener('click', function () {
+    var main = el('conteudo');
+    if (main) setTimeout(function () { main.focus(); }, 0);
+  });
+});
+
+// Esc fecha o painel; clique fora também
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape' && el('painel-acess') && !el('painel-acess').hidden) fecharPainel(true);
+});
+
 document.addEventListener('click', function (e) {
-  var painel = document.getElementById('painel-acess');
-  var btn    = document.getElementById('btn-acessibilidade');
-  if (
-    painel && btn &&
-    !painel.contains(e.target) &&
-    e.target !== btn &&
-    !btn.contains(e.target)
-  ) {
-    fecharPainel();
+  var painel = el('painel-acess'), btn = el('btn-acessibilidade');
+  if (painel && btn && !painel.hidden && !painel.contains(e.target) && !btn.contains(e.target)) {
+    fecharPainel(false);
   }
 });
